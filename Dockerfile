@@ -1,4 +1,5 @@
-FROM ubuntu:16.04 as base
+FROM mlaccetti/docker-oracle-java8-ubuntu-16.04 as base
+#FROM ubuntu:16.04 as base
 
 ENV DEBIAN_FRONTEND=noninteractive TERM=xterm
 RUN echo "export > /etc/envvars" >> /root/.bashrc && \
@@ -17,14 +18,13 @@ CMD bash -c 'export > /etc/envvars && /usr/sbin/runsvdir-start'
 RUN apt-get install -y --no-install-recommends vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc iproute python ssh rsync gettext-base
 
 #Install Oracle Java 8
-RUN add-apt-repository ppa:webupd8team/java -y && \
-    apt-get update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get install -y oracle-java8-installer && \
-    apt install oracle-java8-unlimited-jce-policy && \
-    rm -r /var/cache/oracle-jdk8-installer
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-
+#RUN add-apt-repository ppa:webupd8team/java -y && \
+#    apt-get update && \
+#    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+#    apt-get install -y oracle-java8-installer && \
+#    apt install oracle-java8-unlimited-jce-policy && \
+#    rm -r /var/cache/oracle-jdk8-installer
+#ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 #Spark
 RUN wget -O - http://www-us.apache.org/dist/spark/spark-2.2.1/spark-2.2.1-bin-hadoop2.7.tgz | tar zx
